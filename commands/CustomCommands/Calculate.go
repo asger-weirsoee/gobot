@@ -3,6 +3,7 @@ package CustomCommands
 import (
 	"GOMusicBot/CustomTypes"
 	"github.com/bwmarrin/discordgo"
+	"strconv"
 )
 
 func GetCalculate() CustomCommands {
@@ -14,22 +15,36 @@ func GetCalculate() CustomCommands {
 		Aliases:   CustomTypes.NewSet("add"),
 		GuildOnly: true,
 		Command: func(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
-			if len(args) == 0 {
-				s.ChannelMessageSend(m.ChannelID, "Please provide an expression to calculate.")
+			if len(args) != 2 {
+				_, err := s.ChannelMessageSend(m.ChannelID, "Please provide an expression to calculate.")
+				if err != nil {
+					println("[WARNING] could not send message")
+				}
 				return
 			}
 
-			result, err := Calculate(args)
+			result := Calculate(args)
+			res := "Result: " + strconv.FormatInt(result, 10)
+
+			_, err := s.ChannelMessageSend(m.ChannelID, res)
 			if err != nil {
-				s.ChannelMessageSend(m.ChannelID, "Error: "+err.Error())
-				return
+				println("[WARNING] could not send message")
 			}
-
-			s.ChannelMessageSend(m.ChannelID, "Result: "+result)
 		},
 	}
 }
 
-func Calculate(args []string) (interface{}, interface{}) {
-	return nil, nil
+func Calculate(args []string) int64 {
+	// Add the first and the second parameter index of args together
+	// Convert to integer
+	// Return the result
+	var int1 int
+	var int2 int
+	var result int
+
+	int1, _ = strconv.Atoi(args[0])
+	int2, _ = strconv.Atoi(args[1])
+	result = int1 + int2
+
+	return int64(result)
 }

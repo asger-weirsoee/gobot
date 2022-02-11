@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/spf13/viper"
+	"os"
 	"path/filepath"
 )
 
@@ -21,6 +22,13 @@ type Conf struct {
 }
 
 func (c Conf) GetDiscordDb() string {
+	// If directory DatabaseDir does not exist, create it
+	if _, err := os.Stat(c.DatabaseDir); os.IsNotExist(err) {
+		err := os.Mkdir(c.DatabaseDir, os.ModePerm)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
 	return filepath.Join(filepath.Join(c.DatabaseDir, c.DiscordDb))
 }
 

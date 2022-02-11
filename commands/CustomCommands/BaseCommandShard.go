@@ -75,5 +75,5 @@ func parseArgs(content string) []string {
 			args = append(args, arg)
 		}
 	}
-	return args
+	return args[1:]
 }

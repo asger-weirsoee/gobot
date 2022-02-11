@@ -25,7 +25,10 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 	if k, ok := models.GetPrefixSet()[m.GuildID]; ok {
 		if strings.HasPrefix(m.Content, k) {
-			if c, ok := listOfDictCommands[m.Content[len(k):]]; ok {
+
+			command := strings.TrimPrefix(m.Content, k)
+			command = strings.Split(command, " ")[0]
+			if c, ok := listOfDictCommands[command]; ok {
 				println("[INFO] Accepted command: " + k + m.Content[len(k):])
 				c.RunCommand(s, m)
 			}
