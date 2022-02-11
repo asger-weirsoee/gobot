@@ -1,0 +1,13 @@
+authors:
+- 143662841809862656
+databasedir: ./data
+discorddb: discord.DB
+discordlogfile: bot.log
+discordloglevel: info
+discordlogmaxagedays: 7
+discordlogmaxbackups: 3
+discordlogmaxsizemb: 10
+logdir: ./logs
+owner: Insert Owner ID Here
+prefix: '!'
+token: NTc3MDYyMDAwOTc1MjgyMTk2.XNfk3g.1adlAHr-JzTryR0oRe4GeDrZmWk
